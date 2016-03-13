@@ -11,8 +11,15 @@ namespace Seva\DrawingTool;
 
 use Seva\DrawingTool\IO\WriterTest;
 
+/**
+ * Class ControllerTest
+ * @package Seva\DrawingTool
+ * @covers \Seva\DrawingTool\Controller
+ */
 class ControllerTest extends \PHPUnit_Framework_TestCase {
-
+	/**
+	 * @covers \Seva\DrawingTool\Controller::run
+	 */
 	function testRun() {
 		$rootDir = dirname(dirname(stream_resolve_include_path('bootstrap.php')));
 		$resDir = $rootDir.DIRECTORY_SEPARATOR.'res';
