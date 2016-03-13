@@ -22,6 +22,6 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$controller = new Controller();
 		$controller->run($inputDistFile, $outputFile);
 		// $this->assertFileEquals($outputFile, $outputDistFile); // may fail due to EOL differences
-		$this->assertEquals(WriterTest::normalize(file_get_contents($outputFile)), WriterTest::normalize(file_get_contents($outputDistFile)));
+		$this->assertEquals(WriterTest::normalize(file_get_contents($outputDistFile)), WriterTest::normalize(file_get_contents($outputFile)));
 	}
 }
