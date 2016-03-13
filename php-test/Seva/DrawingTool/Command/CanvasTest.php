@@ -16,11 +16,11 @@ class CanvasTest extends ACommandTest
 
 	static function providerDraw(): array
 	{
-		return ['2x2' => [[2, 2], <<<EOS
-----
-|  |
-|  |
-----
+		return ['4x2' => [[4, 2], <<<EOS
+------
+|    |
+|    |
+------
 
 EOS
 			]

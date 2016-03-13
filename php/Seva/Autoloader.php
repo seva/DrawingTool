@@ -12,7 +12,6 @@ class AutoLoader {
 	const NAMESPACE_SEPARATOR = '\\';
 	const FILE_SUFFIX = '.php';
 
-	private $baseDirs = [];
 	private $registered = false;
 
 	/**
@@ -29,7 +28,7 @@ class AutoLoader {
 	}
 
 	public function addBaseDir(string $baseDir) {
-		$this->baseDirs[] = $baseDir;
+		set_include_path(get_include_path().PATH_SEPARATOR.$baseDir);
 		return $this;
 	}
 
@@ -37,18 +36,8 @@ class AutoLoader {
 	 * Actual loading of the class
 	 */
 	protected function load(string $className): bool {
-		foreach($this->baseDirs as $baseDir) {
-			$fileName = $baseDir.DIRECTORY_SEPARATOR
-				. str_replace(self::NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $className)
-				. self::FILE_SUFFIX;
-			if(!file_exists($fileName)) {
-				continue;
-			}
-			include($fileName);
-			if(class_exists($className, false)) {
-				return true;
-			}
-		}
-		return false;
+		$fileName = str_replace(self::NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $className).self::FILE_SUFFIX;
+		@include($fileName);
+		return class_exists($className, false);
 	}
 }

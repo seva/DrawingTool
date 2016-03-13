@@ -109,7 +109,7 @@ EOS;
 	}
 
 	static function normalize($print) {
-		return preg_replace('/[\n\r]+/', PHP_EOL, $print); // avoid EOL mess
+		return trim(preg_replace('/[\n\r]+/', PHP_EOL, $print)); // avoid EOL mess
 	}
 
 }

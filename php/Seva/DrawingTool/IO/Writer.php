@@ -33,10 +33,9 @@ class Writer {
 	const BORDER_VERTICAL   = '|';
 
 	public function writeDrawing(Drawing $drawing): Writer {
-		$this->printBorderHorizontal($height = $drawing->getheight());
+		$this->printBorderHorizontal($width = $drawing->getWidth());
 		$this->printEOL();
-		$width = $drawing->getWidth();
-		for($y = 1; $y <= $height; ++$y) {
+		for($y = 1, $height = $drawing->getHeight(); $y <= $height; ++$y) {
 			$this->printBorderVertical();
 			for($x = 1; $x <= $width; ++$x) {
 				$this->printColor($drawing->getColor($x, $y));

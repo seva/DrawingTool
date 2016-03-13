@@ -25,7 +25,8 @@ class Fill extends ACommand {
 		$this->color  = $params[2]{0}; // 1 char of a string
 	}
 	function draw(Drawing $drawing): ACommand {
-		if(!static::isFillable($drawing, $this->x, $this->y, $this->color)) {
+		$currentColor = $drawing->getColor($this->x, $this->y);
+		if(!static::isFillable($drawing, $this->x, $this->y, $currentColor)) {
 			return $this;
 		}
 		$queue = [];
@@ -33,20 +34,20 @@ class Fill extends ACommand {
 		while($queue) {
 			list($x, $y) = array_shift($queue);
 			$east = $west = $x;
-			while(static::isFillable($drawing, $west, $y, $this->color)) {
+			while(static::isFillable($drawing, $west, $y, $currentColor)) {
 				++$west;
 			}
-			while(static::isFillable($drawing, $east, $y, $this->color)) {
+			while(static::isFillable($drawing, $east, $y, $currentColor)) {
 				--$east;
 			}
-			for($x = $east; $x <= $west; ++$x) {
+			for($x = $east+1; $x < $west; ++$x) {
 				$drawing->setColor($x, $y, $this->color);
 				$south = $y+1;
-				if(static::isFillable($drawing, $x, $south, $this->color)) {
+				if(static::isFillable($drawing, $x, $south, $currentColor)) {
 					array_push($queue, [$x, $south]);
 				}
 				$north = $y-1;
-				if(static::isFillable($drawing, $x, $north, $this->color)) {
+				if(static::isFillable($drawing, $x, $north, $currentColor)) {
 					array_push($queue, [$x, $north]);
 				}
 			}
@@ -58,6 +59,6 @@ class Fill extends ACommand {
 		if($currentColor == Drawing::NULL_COLOR) {
 			return false;
 		}
-		return $currentColor != $color;
+		return $currentColor == $color;
 	}
 }

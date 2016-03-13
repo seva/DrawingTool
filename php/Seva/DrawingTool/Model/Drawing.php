@@ -40,16 +40,16 @@ class Drawing {
 		if(!$this->isValid($x, $y)) {
 			return self::NULL_COLOR;
 		}
-		return $this->canvas[$x][$y];
+		return $this->canvas[$y][$x];
 	}
 	function setColor(int $x, int $y, string $color): Drawing {
 		if(!$this->isValid($x,$y)) {
 			return $this;
 		}
-		$this->canvas[$x][$y] = $color;
+		$this->canvas[$y][$x] = $color;
 		return $this;
 	}
 	protected function isValid(int $x, int $y): bool {
-		return isset($this->canvas[$x][$y]);
+		return isset($this->canvas[$y][$x]);
 	}
 }
