@@ -15,7 +15,7 @@ class Writer {
 	protected $stream;
 
 	public function open($fileName) {
-		$this->stream = @fopen($fileName, 'w');
+		$this->stream = @fopen($fileName, 'w+');
 		if(!$this->stream) {
 			throw new \LogicException("File $fileName is not writable");
 		}
