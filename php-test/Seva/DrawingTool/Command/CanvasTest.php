@@ -23,7 +23,7 @@ class CanvasTest extends ACommandTest
 ----
 
 EOS
-			,]
+			]
 		];
 	}
 }

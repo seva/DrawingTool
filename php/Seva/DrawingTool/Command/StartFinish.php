@@ -22,12 +22,12 @@ abstract class StartFinish extends ACommand {
 		$this->finishY  = (int)$params[3];
 	}
 	protected static final function drawVertical(Drawing $drawing, $x, $startY, $finishY, $color) {
-		for($y = $startY; $y <= $finishY; ++$y) {
+		for($y = max($startY, 1), $finishY = min($finishY, $drawing->getHeight()); $y <= $finishY; ++$y) {
 			$drawing->setColor($x, $y, $color);
 		}
 	}
 	protected static final function drawHorizontal(Drawing $drawing, $startX, $finishX, $y, $color) {
-		for($x = $startX; $x <= $finishX; ++$x) {
+		for($x = max($startX, 1), $finishX = min($finishX, $drawing->getWidth()); $x <= $finishX; ++$x) {
 			$drawing->setColor($x, $y, $color);
 		}
 	}
