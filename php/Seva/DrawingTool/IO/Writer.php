@@ -33,6 +33,7 @@ class Writer {
 
 	public function writeDrawing(Drawing $drawing) {
 		$this->printBorderHorizontal($height = $drawing->getheight());
+		$this->printEOL();
 		$width = $drawing->getWidth();
 		for($y = 1; $y <= $height; ++$y) {
 			$this->printBorderVertical();
@@ -40,8 +41,10 @@ class Writer {
 				$this->printColor($drawing->getColor($x, $y));
 			}
 			$this->printBorderVertical();
+			$this->printEOL();
 		}
 		$this->printBorderHorizontal($drawing->getWidth());
+		$this->printEOL();
 	}
 	protected function printBorderHorizontal($canvasWidth) {
 		if(!$this->stream) {

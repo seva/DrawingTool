@@ -1,7 +1,7 @@
 <?php
 
 namespace Seva\DrawingTool\IO;
-use Seva\DrawingTool\Command\Canvas;
+use Seva\DrawingTool\Model\Drawing;
 
 /**
  * Class ReaderTest
@@ -51,26 +51,46 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($isOpen->call($this->writer));
 	}
 
+	function testWriteDrawing() {
+		$this->writer->open('php://memory');
+		$drawing = new Drawing();
+		$drawing->init(2, 2, ' ');
+		$drawing->setColor(1, 2, 'X');
+		$printEOL = function($drawing) {/* @var $this Writer */ $this->writeDrawing($drawing);};
+		$printEOL->call($this->writer, $drawing);
+		$expected = <<< EOS
+----
+|  |
+|X |
+----
+
+EOS;
+		$actual = $this->getStreamContent($this->writer);
+		$expected = preg_replace('/[\n\r]+/', PHP_EOL, $expected); // avoid EOL mess
+		$actual   = preg_replace('/[\n\r]+/', PHP_EOL, $actual);   // avoid EOL mess
+		$this->assertEquals($expected, $actual);
+	}
+
 	function testPrintBorderHorizontal() {
 		$this->writer->open('php://memory');
 		$width = 3;
 		$printEOL = function($width) {/* @var $this Writer */ $this->printBorderHorizontal($width);};
 		$printEOL->call($this->writer, $width);
-		$this->assertEquals(str_repeat(Writer::BORDER_HORIZONTAL, 1+$width+1), $this->getStreamContent($this->writer));
+		$this->assertEquals(str_repeat(Writer::BORDER_HORIZONTAL, 1+$width+1), $this->getStreamContent());
 	}
 
 	function testPrintBorderVertical() {
 		$this->writer->open('php://memory');
 		$printEOL = function() {/* @var $this Writer */ $this->printBorderVertical();};
 		$printEOL->call($this->writer);
-		$this->assertEquals(Writer::BORDER_VERTICAL, $this->getStreamContent($this->writer));
+		$this->assertEquals(Writer::BORDER_VERTICAL, $this->getStreamContent());
 	}
 
 	function testPrintEOL() {
 		$this->writer->open('php://memory');
 		$printEOL = function() {/* @var $this Writer */ $this->printEOL();};
 		$printEOL->call($this->writer);
-		$this->assertEquals(PHP_EOL, $this->getStreamContent($this->writer));
+		$this->assertEquals(PHP_EOL, $this->getStreamContent());
 	}
 
 	function testPrintColor() {
@@ -78,10 +98,10 @@ class WriterTest extends \PHPUnit_Framework_TestCase
 		$printEOL = function($color) {/* @var $this Writer */ $this->printColor($color);};
 		$color = 'X';
 		$printEOL->call($this->writer, $color);
-		$this->assertEquals($color, $this->getStreamContent($this->writer));
+		$this->assertEquals($color, $this->getStreamContent());
 	}
 
-	protected function getStreamContent(Writer $writer) {
+	protected function getStreamContent() {
 		$getStreamContent = function() {/* @var $this Writer */
 			$stream = $this->stream;
 			rewind($stream);
