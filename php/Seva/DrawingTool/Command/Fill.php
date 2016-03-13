@@ -37,7 +37,7 @@ class Fill extends ACommand {
 				++$west;
 			}
 			while(static::isFillable($drawing, $east, $y, $this->color)) {
-				++$east;
+				--$east;
 			}
 			for($x = $east; $x <= $west; ++$x) {
 				$drawing->setColor($x, $y, $this->color);
@@ -55,7 +55,7 @@ class Fill extends ACommand {
 	}
 	static function isFillable(Drawing $drawing, int $x, int $y, string $color): bool {
 		$currentColor = $drawing->getColor($x, $y);
-		if(!isset($currentColor)) {
+		if($currentColor == Drawing::NULL_COLOR) {
 			return false;
 		}
 		return $currentColor != $color;

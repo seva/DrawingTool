@@ -10,6 +10,8 @@ use Seva\DrawingTool\Command\ACommand;
  */
 class Drawing {
 
+	const NULL_COLOR = '';
+
 	protected $canvas;
 
 	function init(int $width, int $height, string $color): Drawing {
@@ -36,7 +38,7 @@ class Drawing {
 	}
 	function getColor(int $x, int $y): string {
 		if(!$this->isValid($x, $y)) {
-			return '';
+			return self::NULL_COLOR;
 		}
 		return $this->canvas[$x][$y];
 	}
