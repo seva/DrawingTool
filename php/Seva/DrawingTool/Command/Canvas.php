@@ -25,6 +25,13 @@ class Canvas extends ACommand {
 		$this->height = (int)$params[1];
 	}
 
+	protected function normalizeParams(array $params): array {
+		if(count($params) < 2) {
+			throw new \LogicException('Must be 2 params');
+		}
+		$params = array_map('intval', $params);
+		return $params;
+	}
 	function draw(Drawing $drawing): ACommand {
 		$drawing->init($this->width, $this->height, static::COLOR);
 		return $this;

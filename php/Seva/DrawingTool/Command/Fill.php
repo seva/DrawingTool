@@ -20,10 +20,23 @@ class Fill extends ACommand {
 	protected $color;
 
 	protected function initParams(array $params) {
-		$this->x = (int)$params[0];
-		$this->y = (int)$params[1];
-		$this->color  = $params[2]{0}; // 1 char of a string
+		$this->x     = $params[0];
+		$this->y     = $params[1];
+		$this->color = $params[2];
 	}
+
+	protected function normalizeParams(array $params): array {
+		if(count($params) < 3) {
+			throw new \LogicException('Must be 3 params');
+		}
+		foreach([0,1] as $num) {
+			$params[$num] = (int)$params[$num];
+		}
+		$params[2] = $params[2]{0}; // first char
+		return $params;
+	}
+
+
 	function draw(Drawing $drawing): ACommand {
 		$currentColor = $drawing->getColor($this->x, $this->y);
 		if(!static::isFillable($drawing, $this->x, $this->y, $currentColor)) {

@@ -20,9 +20,13 @@ class Controller {
 		$writer->open($outputFile);
 		$drawing = new Drawing();
 		foreach($reader->readLines() as $line) {
-			$command = $reader->parseCommand($line);
-			$command->draw($drawing);
-			$writer->writeDrawing($drawing);
+			try {
+				$command = $reader->parseCommand($line);
+				$command->draw($drawing);
+				$writer->writeDrawing($drawing);
+			} catch (\LogicException $e) {
+				trigger_error($e->getMessage(), E_USER_WARNING);
+			}
 		}
 		$writer->close();
 		$reader->close();

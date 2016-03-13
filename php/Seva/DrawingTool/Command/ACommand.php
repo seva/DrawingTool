@@ -17,8 +17,8 @@ abstract class ACommand {
 	abstract static function getSymbol(): string;
 
 	function __construct(array $params = []) {
+		$this->normalizeParams($params);
 		$this->initParams($params);
-		$this->validateParams();
 
 	}
 
@@ -27,9 +27,7 @@ abstract class ACommand {
 	/**
 	 * @throws \LogicException
 	 */
-	protected function validateParams() {
-		// TODO proper validation, to be abstract
-	}
+	abstract protected function normalizeParams(array $params): array;
 
 	abstract function draw(Drawing $drawing): ACommand;
 }

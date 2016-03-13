@@ -20,6 +20,10 @@ class Drawing {
 		return $this;
 	}
 
+	function initialized() {
+		return (bool)$this->canvas;
+	}
+
 	/**
 	 * reverse control
 	 * @param ACommand $command

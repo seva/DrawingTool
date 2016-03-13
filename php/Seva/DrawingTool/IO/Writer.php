@@ -33,6 +33,9 @@ class Writer {
 	const BORDER_VERTICAL   = '|';
 
 	public function writeDrawing(Drawing $drawing): Writer {
+		if(!$drawing->initialized()) {
+			throw new \LogicException('Canvas is not ready');
+		}
 		$this->printBorderHorizontal($width = $drawing->getWidth());
 		$this->printEOL();
 		for($y = 1, $height = $drawing->getHeight(); $y <= $height; ++$y) {
