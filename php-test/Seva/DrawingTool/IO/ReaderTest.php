@@ -82,5 +82,4 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 	function testParseCommandFailure() {
 		$this->reader->parseCommand('something else');
 	}
-
 }

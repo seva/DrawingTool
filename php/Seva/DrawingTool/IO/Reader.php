@@ -25,7 +25,7 @@ class Reader {
 
 	public function close() {
 		if($this->stream) {
-			fclose($this->stream);
+			@fclose($this->stream);
 		}
 		$this->stream = null;
 	}

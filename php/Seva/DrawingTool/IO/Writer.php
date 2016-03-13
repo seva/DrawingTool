@@ -15,7 +15,7 @@ class Writer {
 	protected $stream;
 
 	public function open($fileName) {
-		$this->stream = fopen($fileName, 'w');
+		$this->stream = @fopen($fileName, 'w');
 		if(!$this->stream) {
 			throw new \LogicException("File $fileName is not writable");
 		}
@@ -23,8 +23,9 @@ class Writer {
 
 	public function close() {
 		if($this->stream) {
-			fclose($this->stream);
+			@fclose($this->stream);
 		}
+		$this->stream = null;
 	}
 
 	const BORDER_HORIZONTAL = '-';
