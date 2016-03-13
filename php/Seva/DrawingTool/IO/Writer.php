@@ -14,11 +14,12 @@ class Writer {
 
 	protected $stream;
 
-	public function open($fileName) {
+	public function open(string $fileName): Writer {
 		$this->stream = @fopen($fileName, 'w+');
 		if(!$this->stream) {
 			throw new \LogicException("File $fileName is not writable");
 		}
+		return $this;
 	}
 
 	public function close() {
@@ -31,7 +32,7 @@ class Writer {
 	const BORDER_HORIZONTAL = '-';
 	const BORDER_VERTICAL   = '|';
 
-	public function writeDrawing(Drawing $drawing) {
+	public function writeDrawing(Drawing $drawing): Writer {
 		$this->printBorderHorizontal($height = $drawing->getheight());
 		$this->printEOL();
 		$width = $drawing->getWidth();
@@ -45,8 +46,9 @@ class Writer {
 		}
 		$this->printBorderHorizontal($drawing->getWidth());
 		$this->printEOL();
+		return $this;
 	}
-	protected function printBorderHorizontal($canvasWidth) {
+	protected function printBorderHorizontal(int $canvasWidth) {
 		if(!$this->stream) {
 			throw new \LogicException("No active stream");
 		}
@@ -58,7 +60,7 @@ class Writer {
 		}
 		fwrite($this->stream, self::BORDER_VERTICAL);
 	}
-	protected function printColor($color) {
+	protected function printColor(string $color) {
 		if(!$this->stream) {
 			throw new \LogicException("No active stream");
 		}

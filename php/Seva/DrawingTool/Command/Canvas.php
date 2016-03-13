@@ -20,13 +20,12 @@ class Canvas extends ACommand {
 	protected $width;
 	protected $height;
 
-	public function initParams(array $params): ACommand {
+	protected function initParams(array $params) {
 		$this->width  = (int)$params[0];
 		$this->height = (int)$params[1];
-		return $this;
 	}
 
-	public function draw(Drawing $drawing): ACommand {
+	function draw(Drawing $drawing): ACommand {
 		$drawing->init($this->width, $this->height, static::COLOR);
 		return $this;
 	}

@@ -13,7 +13,7 @@ use Seva\DrawingTool\Model\Drawing;
  * execution flow
  */
 class Controller {
-	public function run($inputFile, $outputFile) {
+	public function run(string $inputFile, string $outputFile) {
 		$reader = new Reader();
 		$reader->open($inputFile);
 		$writer = new Writer();

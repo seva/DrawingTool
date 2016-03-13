@@ -32,7 +32,7 @@ class Factory {
 		static $symbolCommands = [];
 		if(!$symbolCommands) {
 			foreach(self::$registry as $command) {
-				/* @var $command ACommand */
+				/* @var $command ACommand class */
 				$symbolCommands[$command::getSymbol()] = $command;
 			}
 		}

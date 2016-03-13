@@ -16,7 +16,7 @@ class Rect extends StartFinish {
 	static function getSymbol(): string {
 		return 'R';
 	}
-	public function draw(Drawing $drawing): ACommand {
+	function draw(Drawing $drawing): ACommand {
 		static::drawHorizontal($drawing, $this->startX,  $this->finishX, $this->startY,  self::COLOR);
 		static::drawHorizontal($drawing, $this->startX,  $this->finishX, $this->finishY, self::COLOR);
 		static::drawVertical($drawing,   $this->startX,  $this->startY,  $this->finishY, self::COLOR);

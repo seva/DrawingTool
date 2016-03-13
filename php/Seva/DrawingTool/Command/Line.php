@@ -16,7 +16,7 @@ class Line extends StartFinish {
 	static function getSymbol(): string {
 		return 'L';
 	}
-	public function draw(Drawing $drawing): ACommand {
+	function draw(Drawing $drawing): ACommand {
 		if($this->startY == $this->finishY) {
 			static::drawHorizontal($drawing, $this->startX, $this->finishX, $this->startY, self::COLOR);
 			return $this;

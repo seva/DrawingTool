@@ -1,5 +1,7 @@
 <?php
 namespace Seva\DrawingTool\Model;
+use Seva\DrawingTool\Command\ACommand;
+
 /**
  * Class Drawing
  * @package Seva\DrawingTool\Model
@@ -10,25 +12,35 @@ class Drawing {
 
 	protected $canvas;
 
-	public function init(int $width, int $height, string $color): Drawing {
+	function init(int $width, int $height, string $color): Drawing {
 		$canvasLine   = array_fill(1, $width, $color);
 		$this->canvas = array_fill(1, $height, $canvasLine);
 		return $this;
 	}
 
-	public function getWidth(): int {
+	/**
+	 * reverse control
+	 * @param ACommand $command
+	 * @return Drawing
+	 */
+	function draw(ACommand $command): Drawing {
+		$command->draw($this);
+		return $this;
+	}
+
+	function getWidth(): int {
 		return count($this->canvas[1]);
 	}
-	public function getHeight(): int {
+	function getHeight(): int {
 		return count($this->canvas);
 	}
-	public function getColor(int $x, int $y): string {
+	function getColor(int $x, int $y): string {
 		if(!$this->isValid($x, $y)) {
 			return '';
 		}
 		return $this->canvas[$x][$y];
 	}
-	public function setColor(int $x, int $y, string $color): Drawing {
+	function setColor(int $x, int $y, string $color): Drawing {
 		if(!$this->isValid($x,$y)) {
 			return $this;
 		}

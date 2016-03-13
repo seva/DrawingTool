@@ -15,12 +15,11 @@ abstract class StartFinish extends ACommand {
 	protected $finishX;
 	protected $finishY;
 
-	public function initParams(array $params): ACommand {
+	protected function initParams(array $params) {
 		$this->startX   = (int)$params[0];
 		$this->startY   = (int)$params[1];
 		$this->finishX  = (int)$params[2];
 		$this->finishY  = (int)$params[3];
-		return $this;
 	}
 	protected static final function drawVertical(Drawing $drawing, $x, $startY, $finishY, $color) {
 		for($y = $startY; $y <= $finishY; ++$y) {

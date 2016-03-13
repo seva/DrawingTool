@@ -19,13 +19,12 @@ class Fill extends ACommand {
 	protected $y;
 	protected $color;
 
-	public function initParams(array $params): ACommand {
+	protected function initParams(array $params) {
 		$this->x = (int)$params[0];
 		$this->y = (int)$params[1];
 		$this->color  = $params[2]{0}; // 1 char of a string
-		return $this;
 	}
-	public function draw(Drawing $drawing): ACommand {
+	function draw(Drawing $drawing): ACommand {
 		if(!static::isFillable($drawing, $this->x, $this->y, $this->color)) {
 			return $this;
 		}
@@ -54,7 +53,7 @@ class Fill extends ACommand {
 		}
 		return $this;
 	}
-	protected static function isFillable(Drawing $drawing, int $x, int $y, string $color): bool {
+	static function isFillable(Drawing $drawing, int $x, int $y, string $color): bool {
 		$currentColor = $drawing->getColor($x, $y);
 		if(!isset($currentColor)) {
 			return false;

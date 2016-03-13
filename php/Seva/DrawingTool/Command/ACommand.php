@@ -22,15 +22,14 @@ abstract class ACommand {
 
 	}
 
-	public abstract function initParams(array $params): ACommand;
+	abstract protected function initParams(array $params);
 
 	/**
-	 * @throws \BadMethodCallException
+	 * @throws \LogicException
 	 */
-	protected function validateParams(): ACommand {
+	protected function validateParams() {
 		// TODO proper validation, to be abstract
-		return $this;
 	}
 
-	abstract public function draw(Drawing $drawing): ACommand;
+	abstract function draw(Drawing $drawing): ACommand;
 }

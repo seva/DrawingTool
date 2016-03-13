@@ -11,7 +11,7 @@ class DrawingTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @var Drawing
 	 */
-	private $drawing;
+	var $drawing;
 
 	function setUp() {
 		$this->drawing = new Drawing();
@@ -26,7 +26,7 @@ class DrawingTest extends \PHPUnit_Framework_TestCase
 	 * @covers \Seva\DrawingTool\Model\Drawing::getWidth
 	 * @covers \Seva\DrawingTool\Model\Drawing::getHeight
 	 */
-	public function testInitWidthHeight() {
+	function testInitWidthHeight() {
 		$color = '@';
 		$dim = 10;
 		$this->drawing->init($dim, $dim, $color);
@@ -37,7 +37,7 @@ class DrawingTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers \Seva\DrawingTool\Model\Drawing::isValid
 	 */
-	public function testValid() {
+	function testValid() {
 		$dim = 5;
 		$this->drawing->init($dim, $dim, 'x');
 		$isValid = function($x, $y) {
@@ -53,7 +53,7 @@ class DrawingTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($isValid->call($this->drawing, 0, 1));
 		$this->assertFalse($isValid->call($this->drawing, $dim+1, 1));
 	}
-	public function testColor() {
+	function testColor() {
 		$empty = 'O';
 		$full  = 'X';
 		$this->drawing->init(2, 2, $empty);
