@@ -9,6 +9,9 @@
       "email": "seva@soln.ca"
     }
   ],
+  "require": {
+    "php": ">=7.0.4"
+  }
   "require-dev": {
     "phpunit/phpunit": "5.4.x-dev"
   }
